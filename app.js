@@ -7,12 +7,13 @@ app.use(cors());
 
 const mongoose=require('mongoose');
 
-const mongoConnect = require('./database').mongoConnect;
 const UserRouter = require('./routers/users');
+const TodoRouter = require('./routers/todo');
 
 app.use(express.json());
 
 app.use(UserRouter);
+app.use(TodoRouter);
 
 mongoose.connect(process.env.MONGODB)
 .then((res)=>{
