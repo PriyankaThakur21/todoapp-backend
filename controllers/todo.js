@@ -28,6 +28,34 @@ exports.gettodo = async(req, res, next)=>{
     }
     catch(err){
         console.log(err);
-        res.status(400).json('something went wrong');
+        res.status(400).json('Something went wrong');
     }
 }
+
+    exports.updatetodo = async(req, res, next)=>{
+        try{
+            const id = req.params.todoid;
+            const todo = await todolist.findOne({_id: id});
+            console.log(todo);
+            await todo.updateOne({ isDone: true } );
+            res.status(200).json('updated');
+        }
+        catch(err){
+            res.status(400).json('Something went wrong');
+            console.log(err);
+        }
+    }
+
+    exports.deletetodo = async(req, res, next)=>{
+        try{
+            const id = req.params.todoid;
+            const todo = await todolist.findOne({_id: id});
+            console.log(todo);
+            await todo.deleteOne();
+            res.status(200).json('deleted');
+        }
+        catch(err){
+            res.status(400).json('Something went wrong');
+            console.log(err);
+        }
+    }
